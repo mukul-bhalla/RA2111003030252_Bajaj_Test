@@ -48,7 +48,7 @@ const App = () => {
         file_b64: file || ""
       };
 
-      const res = await axios.post("https://bajaj-test-9541.onrender.com/bfhl", payload);
+      const res = await axios.post("http://localhost:3000/bfhl", payload);
       setResponse(res.data);
 
       alert('Submission successful!');
