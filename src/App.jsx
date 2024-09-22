@@ -123,8 +123,9 @@ const App = () => {
       )}
 
       <div>{renderResponse()}</div>
+      <br /><br />
 
-      <p>While checking on postman, use multipart/form-data and use key as data and value as json. For file key is file</p>
+      <p>While checking on postman, use multipart/form-data and use data as key  and  value in JSON format as used in above text field  . For file key is file</p>
     </div>
   );
 };
