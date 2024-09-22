@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Select from 'react-select'; // React Select for multi-select dropdown
-import './index.css'; // Assuming your styles are here
+import './index.css'; // Custom Styles
 
 const options = [
   { value: 'Numbers', label: 'Numbers' },
@@ -10,61 +10,57 @@ const options = [
 ];
 
 const App = () => {
-  const [input, setInput] = useState(""); // For JSON data
-  const [file, setFile] = useState(null); // For file input
+  const [input, setInput] = useState("");
+  const [file, setFile] = useState(null);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
-  // Convert file to Base64
+
   const convertFileToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.split(",")[1]); // Base64 part
+      reader.onload = () => resolve(reader.result.split(",")[1]);
       reader.onerror = error => reject(error);
     });
   };
 
-  // Handle file selection
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       try {
         const base64 = await convertFileToBase64(selectedFile);
-        setFile(base64); // Set the Base64 encoded file
+        setFile(base64);
       } catch (error) {
         alert("File reading error: " + error.message);
       }
     }
   };
 
-  // Handle form submission
+
   const handleSubmit = async () => {
     try {
       setError(null);
-      const jsonData = JSON.parse(input); // Parse input data
-
+      const jsonData = JSON.parse(input);
       const payload = {
-        data: jsonData.data, // Data from input
-        file_b64: file || "" // Add Base64 file string or empty if no file selected
+        data: jsonData.data,
+        file_b64: file || ""
       };
 
-      const res = await axios.post("http://localhost:3000/bfhl", payload);
+      const res = await axios.post("https://bajaj-test-9541.onrender.com/bfhl", payload);
       setResponse(res.data);
       alert('Submission successful!');
     } catch (err) {
       setError("Invalid JSON or server error");
-      alert('Submission failed: ' + err.message); // Alert on error
+      alert('Submission failed: ' + err.message);
     }
   };
-
-  // Handle filter change from react-select
   const handleFilterChange = (selectedOptions) => {
     setSelectedFilters(selectedOptions.map(option => option.value));
   };
 
-  // Render response based on selected options
+
   const renderResponse = () => {
     if (!response) return null;
 
@@ -89,7 +85,7 @@ const App = () => {
     <div className="container">
       <h1>Enter The Data</h1>
 
-      {/* Input for JSON data */}
+
       <textarea
         className="form-control"
         placeholder="Enter valid JSON"
@@ -100,19 +96,19 @@ const App = () => {
 
       <br />
 
-      {/* File input */}
+
       <div>
         <label htmlFor="fileInput">Choose a file:</label>
         <input type="file" id="fileInput" onChange={handleFileChange} />
       </div>
       <br />
-      {/* Submit button */}
+      <br />
       <button type="button" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
       <br />
-      {/* Error handling */}
+      <br />
+
       {error && <p className="error">{error}</p>}
 
-      {/* Dropdown with react-select multi-select options */}
       {response && (
         <div className="dropdown-container">
           <Select
@@ -125,7 +121,6 @@ const App = () => {
         </div>
       )}
 
-      {/* Render the response */}
       <div>{renderResponse()}</div>
     </div>
   );
