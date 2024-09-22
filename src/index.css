@@ -1,0 +1,102 @@
+/* Add this in a new file called styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* App container styling */
+.container {
+  max-width: 600px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+}
+
+/* Headline styling */
+h1 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* JSON TextArea styling */
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+textarea:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Submit button styling */
+button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Error message styling */
+.error {
+  color: #e74c3c;
+  margin-bottom: 10px;
+}
+
+/* Dropdown filter styling */
+.checkbox-group {
+  margin: 15px 0;
+}
+
+.checkbox-group label {
+  margin-right: 10px;
+  font-size: 0.9rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Response styling */
+.response-box {
+  margin-top: 20px;
+  text-align: left;
+  background-color: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.response-box strong {
+  color: #2c3e50;
+}
