@@ -1,10 +1,14 @@
 const express = require("express");
 const app = express();
+const multer = require('multer');
 const cors = require("cors");
 const port = 3000;
 
-app.use(cors());
+const storage = multer.memoryStorage(); // You can store files in memory or disk
+const upload = multer({ storage });
 
+app.use(cors());
+app.use(express.urlencoded())
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -20,12 +24,13 @@ const detectMimeType = (buffer) => {
     const fileSignature = buffer.toString('hex', 0, 4);
     return mimeSignatures[fileSignature] || 'unknown';
 };
-app.post('/bfhl', (req, res) => {
+app.post('/bfhl', upload.single('file'), (req, res) => {
     const userId = 'Mukul_Bhalla_27112002';
     const email = 'mb9792@srmist.edu.in';
     const rollNumber = 'RA2111003030252';
-    const data = req.body.data || [];
-    const fileB64 = req.body.file_b64 || '';
+    const pdata = JSON.parse(req.body.data) || [];
+    const { data } = pdata
+    const fileB64 = req.file || '';
 
     const numbers = data.filter(item => !isNaN(item));
     const alphabets = data.filter(item => /^[A-Za-z]$/.test(item));
@@ -43,15 +48,16 @@ app.post('/bfhl', (req, res) => {
     if (fileB64) {
         try {
 
-            const fileBuffer = Buffer.from(fileB64, 'base64');
-            fileSizeKb = fileBuffer.length / 1024;
+
+            fileSizeKb = fileB64.size / 1024;
 
 
-            fileMimeType = detectMimeType(fileBuffer);
-            fileValid = fileMimeType !== 'unknown';
+            fileMimeType = fileB64.mimetype;
+
 
             fileValid = true;
         } catch (error) {
+            console.log(error)
             fileValid = false;
         }
     }
@@ -66,7 +72,7 @@ app.post('/bfhl', (req, res) => {
         highest_lowercase_alphabet: highestLowercaseAlphabet ? [highestLowercaseAlphabet] : []
     };
 
-
+    console.log(fileValid)
     if (fileValid) {
         response.file_valid = true;
         response.file_mime_type = fileMimeType;
