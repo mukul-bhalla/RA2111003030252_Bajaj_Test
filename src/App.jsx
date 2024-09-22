@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Select from 'react-select'; // React Select for multi-select dropdown
-import './index.css'; // Custom Styles
+import Select from 'react-select';
+import './index.css';
 
 const options = [
   { value: 'Numbers', label: 'Numbers' },
@@ -50,6 +50,7 @@ const App = () => {
 
       const res = await axios.post("https://bajaj-test-9541.onrender.com/bfhl", payload);
       setResponse(res.data);
+
       alert('Submission successful!');
     } catch (err) {
       setError("Invalid JSON or server error");
