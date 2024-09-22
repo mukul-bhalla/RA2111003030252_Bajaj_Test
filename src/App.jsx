@@ -50,7 +50,7 @@ const App = () => {
 
       const res = await axios.post("https://bajaj-test-9541.onrender.com/bfhl", payload);
       setResponse(res.data);
-      console.log(res.data);
+   
       alert('Submission successful!');
     } catch (err) {
       setError("Invalid JSON or server error");
