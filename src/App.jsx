@@ -48,7 +48,7 @@ const App = () => {
         file_b64: file || ""
       };
 
-      const res = await axios.post("http://localhost:3000/bfhl", payload);
+      const res = await axios.post("https://bajaj-test-9541.onrender.com/bfhl", payload);
       setResponse(res.data);
 
       alert('Submission successful!');
@@ -123,6 +123,8 @@ const App = () => {
       )}
 
       <div>{renderResponse()}</div>
+
+      <p>While checking on postman, use multipart/form-data and use key as data and value as json. For file key is file</p>
     </div>
   );
 };
