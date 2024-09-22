@@ -50,7 +50,7 @@ const App = () => {
         file_b64: file || "" // Add Base64 file string or empty if no file selected
       };
 
-      const res = await axios.post("http://localhost:3000/bfhl", payload);
+      const res = await axios.post("https://bajaj-test-9541.onrender.com/bfhl", payload);
       setResponse(res.data);
       alert('Submission successful!');
     } catch (err) {
